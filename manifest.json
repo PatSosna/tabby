@@ -10,5 +10,9 @@
         "default_icon": "icons/tabby.svg",
         "default_title": "Open tabs manager",
         "default_popup": "popups/tabby.html"
-    }
+    },
+
+    "permissions": [
+        "tabs"
+    ]
 }
