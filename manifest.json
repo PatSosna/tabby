@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "Tabby",
+    "version": "1.0.0",
+    "icons": {
+        "48": "icons/tabby.svg"
+    },
+
+    "browser_action": {
+        "default_icon": "icons/tabby.svg",
+        "default_title": "Open tabs manager",
+        "default_popup": "popups/tabby.html"
+    }
+}
