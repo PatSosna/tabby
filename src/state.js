@@ -6,13 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         isLoading: false,
-        groups: [
-            {id: 1, name: 'Personal'},
-            {id: 2, name: 'Adler' },
-            {id: 3, name: 'Agilion' },
-            {id: 4, name: 'Litea' },
-            {id: 5, name: 'ThreatGuard' }
-        ]
+        groups: []
     },
     mutations: {
         enableLoading() {
@@ -28,6 +22,9 @@ export default new Vuex.Store({
         },
         addGroup(state, group) {
             state.groups.push(group);
+        },
+        initContent(state, groups) {
+            state.groups = groups;
         }
     }
 });

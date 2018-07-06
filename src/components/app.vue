@@ -9,8 +9,10 @@
                 ></group>
             </div>
             <div class="save-action">
-                <input type="text" v-model="groupName">
-                <button class="button" @click="saveTabs()">Save</button>
+                <form @submit.prevent="saveTabs()">
+                    <input type="text" v-model="groupName">
+                    <button class="button">Save</button>
+                </form>
             </div>
         </div>
         <div class="loading-wheel" v-show="isLoading">
@@ -20,7 +22,6 @@
 </template>
 
 <script>
-    // TODO: Use Vuex for state management
     import Group from './group';
 
     // TODO: Maybe use different naming
@@ -43,28 +44,45 @@
                 return this.$store.state.groups;
             }
         },
+        mounted() {
+            browser.storage.local.get()
+                .then(groups => {
+                    const content = [];
+
+                    for (let key in groups) {
+                        if (groups.hasOwnProperty(key)) {
+                            content.push(groups[key]);
+                        }
+                    }
+
+                    this.$store.commit('initContent', content);
+                });
+        },
         methods: {
             saveTabs() {
+                if (this.groupName === '') return;
+
                 this.$store.commit('enableLoading');
                 browser.tabs.query({ currentWindow: true })
                     .then(tabs => {
-                        // TODO: Should we get rid of that?
-                        const key = Object.keys(tabs[0]);
-
-                        const contentToStore = [];
+                        const tabsContent = [];
 
                         tabs.map((tab, index) => {
-                            contentToStore.push({
+                            tabsContent.push({
                                 url: tab.url,
                                 title: tab.title,
                                 favicon: tab.favIconUrl
                             });
                         });
 
-                        // TODO: Actually store the content. Chose the storage first.
-                        console.log(contentToStore);
+                        const group = new GroupObj(this.groupName);
+                        group.tabs = tabsContent;
 
-                        this.$store.commit('addGroup', new GroupObj(this.groupName));
+                        browser.storage.local.set({
+                            ['group' + group.id]: group
+                        });
+
+                        this.$store.commit('addGroup', group);
                         this.$store.commit('disableLoading');
                         this.groupName = '';
                     });
@@ -87,7 +105,7 @@
     }
 
     .content {
-        padding: 0 1.4em 1.4em;
+        padding: 1.4em;
     }
 
     .groups { }

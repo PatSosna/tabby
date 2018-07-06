@@ -1,6 +1,5 @@
 <template>
     <div class="group">
-        <span>#{{ group.id }}</span>
         <a class="group__name">{{ name }}</a>
         <a class="group__icon">
             <i class="fa fa-trash" @click="deleteGroup"></i>
@@ -18,6 +17,10 @@
         },
         methods: {
             deleteGroup() {
+                if (!confirm(`Delete group ${this.group.name}?`)) return;
+
+                browser.storage.local.remove('group' + this.group.id);
+
                 this.$store.commit('deleteGroup', this.group.id);
             }
         }
