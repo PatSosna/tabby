@@ -1,8 +1,8 @@
 <template>
     <div class="group">
-        <a class="group__name">{{ name }}</a>
+        <a class="group__name" @click="openGroup()">{{ name }}</a>
         <a class="group__icon">
-            <i class="fa fa-trash" @click="deleteGroup"></i>
+            <i class="fa fa-trash" @click="deleteGroup()"></i>
         </a>
     </div>
 </template>
@@ -17,13 +17,26 @@
         },
         methods: {
             deleteGroup() {
-                if (!confirm(`Delete group ${this.group.name}?`)) return;
-
                 browser.storage.local.remove('group' + this.group.id);
-
                 this.$store.commit('deleteGroup', this.group.id);
+            },
+            openGroup() {
+                browser.tabs.query({
+                    currentWindow: true
+                }).then(tabs => {
+                    // IDs of tabs to be closed
+                    const ids = tabs.map(tab => {
+                        return tab.id;
+                    });
+                    // Open tabs
+                    this.group.tabs.map(tab => {
+                        browser.tabs.create({ url: tab.url });
+                    });
+                    // Close the old ones
+                    browser.tabs.remove(ids);
+                });
             }
-        }
+      }
     }
 </script>
 

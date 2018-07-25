@@ -8,12 +8,10 @@
                        :key="group.id"
                 ></group>
             </div>
-            <div class="save-action">
-                <form @submit.prevent="saveTabs()">
-                    <input type="text" v-model="groupName">
-                    <button class="button">Save</button>
-                </form>
-            </div>
+            <form @submit.prevent="saveTabs()" class="save-action">
+                <input type="text" v-model="groupName">
+                <button class="button">Save</button>
+            </form>
         </div>
         <div class="loading-wheel" v-show="isLoading">
             <i class="fa fa-spinner fa-spin fa-3x"></i>
@@ -118,14 +116,14 @@
     .save-action {
         display: flex;
         justify-content: space-between;
-        width: 100%;
 
         input {
-            width: 60%;
+            min-width: 0;
+            margin-right: 4px;
         }
 
         button {
-            width: 30%;
+            flex: 0 0 80px;
         }
     }
 
