@@ -37,3 +37,5 @@ This is where Tabby comes in play. Save opened window as a new group of tabs, na
 If you are that kind of person who starts his browser and immediately opens certain tabs as usual, tabby might be something you are looking for.
 
 ## TODO - Once tabby is available from mozilla addons put link here
+
+## TODO - After it's downloadable show to users how to install it
