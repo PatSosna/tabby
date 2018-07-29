@@ -4,7 +4,7 @@ Tabby is a simple Firefox extension that allows you to easily switch between dif
 
 ## What can it do for me?
 
-* It comes in form of simple item in your Firefox's toolbar
+It comes in form of simple item in your Firefox's toolbar
 
 ![Tabby in toolbar](./docs/images/tabby_toolbar.png)
 
