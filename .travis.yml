@@ -1,6 +1,8 @@
 language: node_js
 before_script:
   - npm install jsonwebtoken
+node_js:
+  - "9"
 jobs:
   include:
     - stage: "Deploy"
