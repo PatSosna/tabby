@@ -1,0 +1,11 @@
+language: node_js
+before_script:
+  - npm install jsonwebtoken
+jobs:
+  include:
+    - stage: "Deploy"
+      script: npm run deploy
+cache:
+  directories:
+    - "node_modules"
+
