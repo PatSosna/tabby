@@ -69,6 +69,11 @@
                         browser.storage.local.set({
                             ['group' + group.id]: group
                         });
+
+                        // Inform user
+                        const message = 'Successfully updated';
+                        const type = 'success';
+                        this.$store.commit('flashMessage', { message, type });
                     });
             }
       }

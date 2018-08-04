@@ -16,6 +16,16 @@
         <div class="loading-wheel" v-show="isLoading">
             <i class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
+
+        <div
+                class="info-window"
+                :class="{
+                    ['info-window--' + infoWindowType]: true,
+                    'visible': isInfoWindowActive
+                }"
+        >
+            {{ infoWindowMessage }}
+        </div>
     </div>
 </template>
 
@@ -31,16 +41,20 @@
         },
         data() {
             return {
-                groupName: ''
+                groupName: '',
+                infoWindow: {
+                    show: true,
+                    type: 'success',
+                    message: ''
+                }
             }
         },
         computed: {
-            isLoading() {
-                return this.$store.state.isLoading;
-            },
-            groups() {
-                return this.$store.state.groups;
-            }
+            isLoading() { return this.$store.state.isLoading; },
+            groups() { return this.$store.state.groups; },
+            isInfoWindowActive() { return this.$store.state.infoWindow.show; },
+            infoWindowMessage() { return this.$store.state.infoWindow.message; },
+            infoWindowType() { return this.$store.state.infoWindow.type; }
         },
         mounted() {
             browser.storage.local.get()
@@ -141,5 +155,39 @@
         justify-content: center;
         align-items: center;
         color: white;
+    }
+
+    .info-window {
+        position: absolute;
+        top: -3em;
+        transition: top ease .4s;
+        left: 0;
+        width: 100%;
+        height: 3em;
+        padding: 1em;
+        background: white;
+        font-family: sans-serif, FontAwesome;
+        text-rendering: auto;
+        color: white;
+
+        &.visible {
+            top: 0;
+        }
+
+        &.info-window--success {
+            background: #28a745;
+
+            &:before {
+                content: "\F00C";
+            }
+        }
+
+        &.info-window--error {
+            background: #dc3545;
+
+            &:before {
+                content: "\F00D";
+            }
+        }
     }
 </style>
