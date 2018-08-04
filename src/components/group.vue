@@ -34,6 +34,8 @@
                     });
                     // Close the old ones
                     browser.tabs.remove(ids);
+                    // Close the popup
+                    window.close();
                 });
             }
       }
