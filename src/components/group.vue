@@ -1,6 +1,9 @@
 <template>
     <div class="group">
         <a class="group__name" @click="openGroup()">{{ name }}</a>
+        <a class="group__icon" title="Update this group with currently opened tabs">
+            <i class="fa fa-refresh" @click="updateGroup()"></i>
+        </a>
         <a class="group__icon">
             <i class="fa fa-trash" @click="deleteGroup()"></i>
         </a>
@@ -8,6 +11,8 @@
 </template>
 
 <script>
+    import GroupObj from '../group';
+
     export default {
         props: ['group'],
         computed: {
@@ -21,20 +26,55 @@
                 this.$store.commit('deleteGroup', this.group.id);
             },
             openGroup() {
-                browser.tabs.query({
-                    currentWindow: true
-                }).then(tabs => {
-                    // IDs of tabs to be closed
-                    const ids = tabs.map(tab => {
-                        return tab.id;
+                browser.tabs.query({ currentWindow: true })
+                    .then(tabs => {
+                        // IDs of tabs to be closed
+                        const ids = tabs.map(tab => {
+                            return tab.id;
+                        });
+                        // Open tabs
+                        this.group.tabs.map(tab => {
+                            browser.tabs.create({ url: tab.url });
+                        });
+                        // Close the old ones
+                        browser.tabs.remove(ids);
+                        // Close the popup
+                        window.close();
                     });
-                    // Open tabs
-                    this.group.tabs.map(tab => {
-                        browser.tabs.create({ url: tab.url });
+            },
+            /**
+             * Todo: This is exactly the same as the saveTabs
+             *       method in app.vue. Consider using some sort of facade
+             *       here.
+             */
+            updateGroup() {
+                // Get tabs from current window
+                browser.tabs.query({ currentWindow: true })
+                    .then(tabs => {
+                        const tabsContent = [];
+
+                        // Todo create object representing a set of tabs
+                        tabs.map((tab, index) => {
+                            tabsContent.push({
+                                url: tab.url,
+                                title: tab.title,
+                                favicon: tab.favIconUrl
+                            });
+                        });
+
+                        // Update storage
+                        const group = new GroupObj(this.group.name);
+                        group.tabs = tabsContent;
+
+                        browser.storage.local.set({
+                            ['group' + group.id]: group
+                        });
+
+                        // Inform user
+                        const message = 'Successfully updated';
+                        const type = 'success';
+                        this.$store.commit('flashMessage', { message, type });
                     });
-                    // Close the old ones
-                    browser.tabs.remove(ids);
-                });
             }
       }
     }
@@ -42,7 +82,6 @@
 
 <style lang="scss">
     .group {
-        margin: .8em 0;
         display: flex;
         align-items: center;
     }
@@ -50,7 +89,7 @@
     .group__name {
         flex-grow: 2;
         cursor: pointer;
-        padding: .4em;
+        padding: .6em;
     }
 
     .group__name:hover {
