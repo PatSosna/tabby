@@ -31,6 +31,14 @@ export default new Vuex.Store({
         initContent(state, groups) {
             state.groups = groups;
         },
+        updateGroup(state, { groupId, tabs }) {
+            state.groups = state.groups.map(group => {
+                if (group.id === groupId)
+                    group.tabs = tabs;
+
+                return group;
+            });
+        },
         flashMessage(state, { message, type }) {
             state.infoWindow.type = type;
             state.infoWindow.message = message;
