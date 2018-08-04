@@ -106,7 +106,9 @@
         padding: 1.4em;
     }
 
-    .groups { }
+    .groups {
+        margin-bottom: 1em;
+    }
 
     .button {
         padding: .4em .6em;

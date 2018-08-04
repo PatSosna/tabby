@@ -44,7 +44,6 @@
 
 <style lang="scss">
     .group {
-        margin: .8em 0;
         display: flex;
         align-items: center;
     }
@@ -52,7 +51,7 @@
     .group__name {
         flex-grow: 2;
         cursor: pointer;
-        padding: .4em;
+        padding: .6em;
     }
 
     .group__name:hover {
