@@ -65,6 +65,7 @@
                     .then(tabs => {
                         const tabsContent = [];
 
+                        // Todo create object representing a set of tabs
                         tabs.map((tab, index) => {
                             tabsContent.push({
                                 url: tab.url,
