@@ -41,12 +41,7 @@
         },
         data() {
             return {
-                groupName: '',
-                infoWindow: {
-                    show: true,
-                    type: 'success',
-                    message: ''
-                }
+                groupName: ''
             }
         },
         computed: {
