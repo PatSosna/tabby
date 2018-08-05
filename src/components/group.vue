@@ -50,6 +50,7 @@
             updateGroup() {
                 // TODO: Create facades for querying browser data
                 // TODO: Rewrite with async/await
+
                 // Get tabs from current window
                 browser.tabs.query({ currentWindow: true })
                     .then(tabs => {
