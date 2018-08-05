@@ -48,6 +48,9 @@
              *       here.
              */
             updateGroup() {
+                // TODO: Create facades for querying browser data
+                // TODO: Rewrite with async/await
+
                 // Get tabs from current window
                 browser.tabs.query({ currentWindow: true })
                     .then(tabs => {
@@ -62,18 +65,24 @@
                             });
                         });
 
-                        // Update storage
-                        const group = new GroupObj(this.group.name);
-                        group.tabs = tabsContent;
+                        // Clear storage
+                        browser.storage.local.clear()
+                            .then(() => {
+                                // Update storage
+                                const group = new GroupObj(this.group.name);
+                                group.tabs = tabsContent;
 
-                        browser.storage.local.set({
-                            ['group' + group.id]: group
-                        });
+                                browser.storage.local.set({
+                                    ['group' + group.id]: group
+                                });
 
-                        // Inform user
-                        const message = 'Successfully updated';
-                        const type = 'success';
-                        this.$store.commit('flashMessage', { message, type });
+                                // Inform user
+                                const message = 'Successfully updated';
+                                const type = 'success';
+
+                                this.$store.commit('flashMessage', { message, type });
+                                this.$store.commit('updateGroup', { groupId: group.id, tabs: tabsContent });
+                            });
                     });
             }
       }
