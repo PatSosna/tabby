@@ -3,11 +3,12 @@
     "name": "Tabby",
     "version": "1.0.0",
     "icons": {
-        "48": "icons/tabby.svg"
+        "48": "icons/logo.png",
+        "96": "icons/logo_big.png"
     },
 
     "browser_action": {
-        "default_icon": "icons/tabby.svg",
+        "default_icon": "icons/logo.png",
         "default_title": "Open tabs manager",
         "default_popup": "popups/tabby.html"
     },

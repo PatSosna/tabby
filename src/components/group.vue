@@ -25,65 +25,53 @@
                 browser.storage.local.remove('group' + this.group.id);
                 this.$store.commit('deleteGroup', this.group.id);
             },
-            openGroup() {
-                browser.tabs.query({ currentWindow: true })
-                    .then(tabs => {
-                        // IDs of tabs to be closed
-                        const ids = tabs.map(tab => {
-                            return tab.id;
-                        });
-                        // Open tabs
-                        this.group.tabs.map(tab => {
-                            browser.tabs.create({ url: tab.url });
-                        });
-                        // Close the old ones
-                        browser.tabs.remove(ids);
-                        // Close the popup
-                        window.close();
-                    });
+            async openGroup() {
+                const tabs = await browser.tabs.query({ currentWindow: true }); 
+                const ids = tabs.map(tab => {
+                    return tab.id;
+                });
+                // Open tabs
+                this.group.tabs.map(tab => {
+                    browser.tabs.create({ url: tab.url });
+                });
+                // Close the old ones
+                browser.tabs.remove(ids);
+                // Close the popup
+                window.close();
             },
             /**
              * Todo: This is exactly the same as the saveTabs
              *       method in app.vue. Consider using some sort of facade
              *       here.
              */
-            updateGroup() {
+            async updateGroup() {
                 // TODO: Create facades for querying browser data
-                // TODO: Rewrite with async/await
-
                 // Get tabs from current window
-                browser.tabs.query({ currentWindow: true })
-                    .then(tabs => {
-                        const tabsContent = [];
+                let tabs = await browser.tabs.query({ currentWindow: true });  
+                tabs = tabs.map((tab, index) => {
+                    return {
+                        url: tab.url,
+                        title: tab.title,
+                        favicon: tab.favIconUrl
+                    };
+                });
 
-                        // Todo create object representing a set of tabs
-                        tabs.map((tab, index) => {
-                            tabsContent.push({
-                                url: tab.url,
-                                title: tab.title,
-                                favicon: tab.favIconUrl
-                            });
-                        });
+                await browser.storage.local.clear();
 
-                        // Clear storage
-                        browser.storage.local.clear()
-                            .then(() => {
-                                // Update storage
-                                const group = new GroupObj(this.group.name);
-                                group.tabs = tabsContent;
+                // Update storage
+                const group = new GroupObj(this.group.name);
+                group.tabs = tabs;
 
-                                browser.storage.local.set({
-                                    ['group' + group.id]: group
-                                });
+                browser.storage.local.set({
+                    ['group' + group.id]: group
+                });
 
-                                // Inform user
-                                const message = 'Successfully updated';
-                                const type = 'success';
+                // Inform user
+                const message = 'Successfully updated';
+                const type = 'success';
 
-                                this.$store.commit('flashMessage', { message, type });
-                                this.$store.commit('updateGroup', { groupId: group.id, tabs: tabsContent });
-                            });
-                    });
+                this.$store.commit('flashMessage', { message, type });
+                this.$store.commit('updateGroup', { groupId: group.id, tabs: tabs });
             }
       }
     }
@@ -93,6 +81,7 @@
     .group {
         display: flex;
         align-items: center;
+        border-bottom: 1px dashed #eee;
     }
 
     .group__name {
