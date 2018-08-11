@@ -56,49 +56,42 @@
             infoWindowMessage() { return this.$store.state.infoWindow.message; },
             infoWindowType() { return this.$store.state.infoWindow.type; }
         },
-        mounted() {
-            browser.storage.local.get()
-                .then(groups => {
-                    const content = [];
+        async mounted() {
+            const groups = await browser.storage.local.get();
+            const content = [];
 
-                    for (let key in groups) {
-                        if (groups.hasOwnProperty(key)) {
-                            content.push(groups[key]);
-                        }
-                    }
+            for (let key in groups) {
+                if (!groups.hasOwnProperty(key)) continue;
+                content.push(groups[key]);
+            }
 
-                    this.$store.commit('initContent', content);
-                });
+            this.$store.commit('initContent', content);
         },
         methods: {
-            saveTabs() {
+            async saveTabs() {
                 if (this.groupName === '') return;
 
                 this.$store.commit('enableLoading');
-                browser.tabs.query({ currentWindow: true })
-                    .then(tabs => {
-                        const tabsContent = [];
+                let tabs = await browser.tabs.query({ currentWindow: true });
+                // Todo create object representing a set of tabs
+                tabs = tabs.map((tab, index) => {
+                    return {
+                        url: tab.url,
+                        title: tab.title,
+                        favicon: tab.favIconUrl
+                    };
+                });
 
-                        // Todo create object representing a set of tabs
-                        tabs.map((tab, index) => {
-                            tabsContent.push({
-                                url: tab.url,
-                                title: tab.title,
-                                favicon: tab.favIconUrl
-                            });
-                        });
+                const group = new GroupObj(this.groupName);
+                group.tabs = tabs;
 
-                        const group = new GroupObj(this.groupName);
-                        group.tabs = tabsContent;
+                browser.storage.local.set({
+                    ['group' + group.id]: group
+                });
 
-                        browser.storage.local.set({
-                            ['group' + group.id]: group
-                        });
-
-                        this.$store.commit('addGroup', group);
-                        this.$store.commit('disableLoading');
-                        this.groupName = '';
-                    });
+                this.$store.commit('addGroup', group);
+                this.$store.commit('disableLoading');
+                this.groupName = '';
             }
         }
     }
