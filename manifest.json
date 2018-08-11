@@ -3,7 +3,8 @@
     "name": "Tabby",
     "version": "1.0.0",
     "icons": {
-        "48": "icons/logo.png"
+        "48": "icons/logo.png",
+        "96": "icons/logo_big.png"
     },
 
     "browser_action": {
