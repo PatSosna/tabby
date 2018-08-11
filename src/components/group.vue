@@ -46,7 +46,6 @@
              */
             async updateGroup() {
                 // TODO: Create facades for querying browser data
-
                 // Get tabs from current window
                 let tabs = await browser.tabs.query({ currentWindow: true });  
                 tabs = tabs.map((tab, index) => {
@@ -73,7 +72,6 @@
 
                 this.$store.commit('flashMessage', { message, type });
                 this.$store.commit('updateGroup', { groupId: group.id, tabs: tabs });
-
             }
       }
     }
