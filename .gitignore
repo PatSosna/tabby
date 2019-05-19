@@ -1,6 +1,12 @@
+# IDEs
 .idea
-node_modules/
-dist/
+.vscode
+
+# Javascript
+dist
+node_modules
+npm-debug.log
+
+# Firefox add-on
 *.xpi
 tabby.zip
-npm-debug.log

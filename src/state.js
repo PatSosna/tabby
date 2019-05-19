@@ -1,51 +1,53 @@
+/* eslint-disable no-param-reassign */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        isLoading: false,
-        groups: [],
-        infoWindow: {
-            show: false,
-            type: 'success',
-            message: ''
-        }
+  state: {
+    isLoading: false,
+    groups: [],
+    infoWindow: {
+      show: false,
+      type: 'success',
+      message: '',
+      icon: '',
     },
-    mutations: {
-        enableLoading() {
-            this.state.isLoading = true;
-        },
-        disableLoading() {
-            this.state.isLoading = false;
-        },
-        deleteGroup(state, id) {
-            state.groups = state.groups.filter(group => {
-                return group.id !== id;
-            })
-        },
-        addGroup(state, group) {
-            state.groups.push(group);
-        },
-        initContent(state, groups) {
-            state.groups = groups;
-        },
-        updateGroup(state, { groupId, tabs }) {
-            state.groups = state.groups.map(group => {
-                if (group.id === groupId)
-                    group.tabs = tabs;
+  },
 
-                return group;
-            });
-        },
-        flashMessage(state, { message, type }) {
-            state.infoWindow.type = type;
-            state.infoWindow.message = message;
-            state.infoWindow.show = true;
+  mutations: {
+    loading(state, show) {
+      state.isLoading = show;
+    },
 
-            // Todo: Extract to own InfoWindow object. It does not belong to the state
-            setTimeout(() => { state.infoWindow.show = false }, 2000);
-        }
-    }
+    showMessage(state, { message, type, icon }) {
+      state.infoWindow.message = message;
+      state.infoWindow.type = type;
+      state.infoWindow.icon = icon;
+      state.infoWindow.show = true;
+    },
+
+    hideMessage(state) {
+      state.infoWindow.show = false;
+    },
+
+    deleteGroup(state, id) {
+      state.groups = state.groups.filter(group => group.id !== id);
+    },
+
+    addGroup(state, group) {
+      state.groups.push(group);
+    },
+
+    setGroups(state, groups) {
+      state.groups = groups;
+    },
+
+    updateGroup(state, { groupId, tabs }) {
+      const group = state.groups.find(item => item.id === groupId);
+      group.tabs = tabs;
+    },
+  },
 });

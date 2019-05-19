@@ -1,33 +1,40 @@
 {
-  "name": "Tabby",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "deploy": "npm run production && ./release.sh",
-    "test": ""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/DanCharousek/tabby.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/DanCharousek/tabby/issues"
-  },
-  "homepage": "https://gitlab.com/DanCharousek/tabby#README",
-  "devDependencies": {
-    "font-awesome": "^4.7.0",
-    "i": "^0.3.6",
-    "laravel-mix": "^2.1.11",
-    "npm": "^6.1.0",
-    "vue": "^2.5.16",
-    "vuex": "^3.0.1"
-  }
+    "name": "tabby",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "eslint": "eslint src/**/*.{js,vue}"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@gitlab.com/DanCharousek/tabby.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/DanCharousek/tabby/issues"
+    },
+    "homepage": "https://gitlab.com/DanCharousek/tabby#README",
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.18",
+        "@fortawesome/free-solid-svg-icons": "^5.8.2",
+        "@fortawesome/vue-fontawesome": "^0.1.6",
+        "vue": "^2.6.10",
+        "vuex": "^3.1.1"
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.17.2",
+        "eslint-plugin-vue": "^5.2.2",
+        "laravel-mix": "^2.1.14",
+        "npm": "^6.9.0"
+    }
 }
