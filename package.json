@@ -1,6 +1,6 @@
 {
     "name": "tabby",
-    "version": "%tabby_release_version%",
+    "version": "v0.0.0-placeholder",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -15,8 +15,8 @@
         "url": "git+ssh://git@gitlab.com/DanCharousek/tabby.git"
     },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": "Dan Charousek <dan@charousek.dev>",
+    "license": "MIT",
     "bugs": {
         "url": "https://gitlab.com/DanCharousek/tabby/issues"
     },

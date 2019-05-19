@@ -25,7 +25,6 @@ tslint:
   stage: test
   image: node:carbon-stretch
   script:
-    - sed -i "s/%tabby_release_version%/$CI_BUILD_REF_NAME/g" package.json
     - npm run eslint
   dependencies:
     - npm:dev
@@ -38,7 +37,7 @@ npm:build:
   stage: build
   image: node:carbon-stretch
   script:
-    - sed -i "s/%tabby_release_version%/$CI_BUILD_REF_NAME/g" manifest.json package.json
+    - sed -i "s/v0.0.0-placeholder/$CI_BUILD_REF_NAME/g" manifest.json package.json
     - apt update && apt install zip
     - npm run production
     - ./cmd.sh release
