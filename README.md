@@ -4,6 +4,8 @@ Tabby is a simple Firefox extension that allows you to easily switch between dif
 
 You can get tabby as [firefox addon](https://addons.mozilla.org/en-US/firefox/addon/tabby-manager/).
 
+[Are you a Mozilla reviewer?](#mozilla-reviewers)
+
 ## What can it do for me?
 
 It comes in form of simple item in your Firefox's toolbar
@@ -86,6 +88,21 @@ This is tested only on Ubuntu (19.04). It should also work on most linux distrib
         $ npm run production
         $ ./cmd.sh npm run production  # when using docker
         
-6. Create compress add-on into archive `tabby.zip`.
+6. Compress add-on into archive `tabby.zip`.
 
-        $ ./release.sh
+        $ ./cmd.sh release
+
+
+### Mozilla reviewers
+
+Instead of getting this repository via git, you should have `tabby-source.zip`
+archive that's been created using `./cmd.sh source` command.
+
+The same steps apply when compiling the code obtained from this archive as from git repository.
+Please follow the instructions 2. and 3. from [getting started](#getting-started).
+
+For generating code submitted to [AMO](https://addons.mozilla.org/)
+run `npm run production` (or `./cmd.sh npm run production` if using docker) and then
+`./cmd.sh release`.
+
+This bundles, minifies the source code and creates the final `tabby.zip` archive. 

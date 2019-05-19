@@ -37,13 +37,15 @@ npm:build:
   stage: build
   image: node:carbon-stretch
   script:
-    - apt install zip
+    - apt update && apt install zip
     - npm run production
-    - ./release.sh
+    - ./cmd.sh release
+    - ./cmd.sh source
   artifacts:
-    expire_in: 7 days
+    expire_in: 1 day
     paths:
       - tabby.zip
+      - tabby-source.zip
   dependencies:
     - npm:dev
   only:
