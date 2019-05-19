@@ -25,6 +25,7 @@ tslint:
   stage: test
   image: node:carbon-stretch
   script:
+    - sed -i "s/%tabby_release_version%/$CI_BUILD_REF_NAME/g" package.json
     - npm run eslint
   dependencies:
     - npm:dev
