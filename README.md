@@ -2,6 +2,8 @@
 
 Tabby is a simple Firefox extension that allows you to easily switch between different set of tabs and helps you with managing clean working environment.
 
+You can get tabby as [firefox addon](https://addons.mozilla.org/en-US/firefox/addon/tabby-manager/).
+
 ## What can it do for me?
 
 It comes in form of simple item in your Firefox's toolbar
@@ -36,6 +38,54 @@ This is where Tabby comes in play. Save opened window as a new group of tabs, na
 
 If you are that kind of person who starts his browser and immediately opens certain tabs as usual, tabby might be something you are looking for.
 
-## TODO - Once tabby is available from mozilla addons put link here
+## Developing
 
-## TODO - After it's downloadable show to users how to install it
+Tabby is built using [VueJS](https://vuejs.org/) and bundled by [webpack](https://webpack.js.org/).
+
+### Docker
+
+Following instructions (most of them) assume, you have node and npm installed.
+If you use docker, you don't need to install any of those.
+
+Replace `npm ...` commands
+with `./cmd.sh npm ...`. So for example instead of `npm install` using docker (without node and npm installed)
+you can run `./cmd.sh npm install`. This will use `node:carbon-stretch` docker image and will run
+all npm commands inside the container.
+
+This is tested only on Ubuntu (19.04). It should also work on most linux distributions that support docker.
+
+### Getting started  
+
+1. Clone this repository
+
+        $ git clone git@gitlab.com:DanCharousek/tabby.git
+        
+2. Install node packages
+
+        $ npm i
+        $ ./cmd.sh npm i  # when using docker
+        
+3. Compile
+
+        $ npm run dev
+        $ ./cmd.sh npm run dev  # when using docker
+    Or use watch, so you don't have to re-compile after every change
+    
+        $ npm run watch
+        $ ./cmd.sh npm run watch  # when using docker
+        
+4. Do some magic here...
+
+5. Make sure eslint passes. Otherwise your merge request won't be accepted.
+
+        $ npm run eslint
+        $ ./cmd.sh npm run eslint  # when using docker
+
+5. Compile for production use
+
+        $ npm run production
+        $ ./cmd.sh npm run production  # when using docker
+        
+6. Create compress add-on into archive `tabby.zip`.
+
+        $ ./release.sh

@@ -1,0 +1,51 @@
+stages:
+  - install
+  - test
+  - build
+
+variables:
+  APP_ENV: "testing"
+
+npm:dev:
+  stage: install
+  image: node:carbon-stretch
+  script:
+    - node -v && npm -v
+    - npm install
+  artifacts:
+    expire_in: 25 mins
+    paths:
+      - node_modules
+  only:
+    - tags
+    - web
+    - merge_requests
+
+tslint:
+  stage: test
+  image: node:carbon-stretch
+  script:
+    - npm run eslint
+  dependencies:
+    - npm:dev
+  only:
+    - tags
+    - web
+    - merge_requests
+
+npm:build:
+  stage: build
+  image: node:carbon-stretch
+  script:
+    - npm run production
+    - ./release.sh
+  artifacts:
+    expire_in: 7 days
+    paths:
+      - tabby.zip
+  dependencies:
+    - npm:dev
+  only:
+    - tags
+    - web
+
