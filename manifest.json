@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Tabby",
-    "version": "v0.0.0-placeholder",
+    "version": "0.0.0-placeholder",
     "icons": {
         "48": "icons/logo.png",
         "96": "icons/logo_big.png"
