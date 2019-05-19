@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Tabby",
-    "version": "1.0.0",
+    "version": "%tabby_release_version%",
     "icons": {
         "48": "icons/logo.png",
         "96": "icons/logo_big.png"

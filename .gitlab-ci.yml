@@ -37,6 +37,7 @@ npm:build:
   stage: build
   image: node:carbon-stretch
   script:
+    - sed -i "s/%tabby_release_version%/$CI_BUILD_REF_NAME/g" manifest.json package.json
     - apt update && apt install zip
     - npm run production
     - ./cmd.sh release
