@@ -156,7 +156,7 @@ export default {
         browser.tabs.create({
           url: tab.url,
           pinned: tab.pinned,
-          cookieStoreId: tab.cookieStoreId
+          cookieStoreId: tab.cookieStoreId,
         });
       });
 
