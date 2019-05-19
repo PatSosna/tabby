@@ -126,7 +126,9 @@ export default {
           tabs: tabs.map(tab => ({
             url: tab.url,
             title: tab.title,
-            favicon: tab.favIconurl,
+            pinned: tab.pinned,
+            favIconurl: tab.favIconurl,
+            cookieStoreId: tab.cookieStoreId,
           })),
         };
 
@@ -151,7 +153,11 @@ export default {
 
       // Open tabs
       group.tabs.forEach((tab) => {
-        browser.tabs.create({ url: tab.url });
+        browser.tabs.create({
+          url: tab.url,
+          pinned: tab.pinned,
+          cookieStoreId: tab.cookieStoreId
+        });
       });
 
       // Close the old ones
