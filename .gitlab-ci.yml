@@ -37,6 +37,7 @@ npm:build:
   stage: build
   image: node:carbon-stretch
   script:
+    - apt install zip
     - npm run production
     - ./release.sh
   artifacts:
