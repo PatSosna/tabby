@@ -1,13 +1,24 @@
-# IDEs
+# Tabby
+tabby.zip
+
+.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
 .idea
 .vscode
-
-# Javascript
-dist
-node_modules
-npm-debug.log
-
-# Firefox add-on
-*.xpi
-tabby.zip
-tabby-source.zip
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
